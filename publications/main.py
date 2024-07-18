@@ -78,7 +78,7 @@ def main():
     if response.status_code == 200:
         bib_database = bibtexparser.loads(response.content.decode('utf-8')).entries
         with open('formatted_output.json', 'w') as json_file:
-            json.dump(create_json(bib_database), json_file, indent=4)
+            json.dump(create_json(bib_database), json_file, separators=(',', ':'))
     else:
         print(f"Errore nella chiamata POST: {response.status_code} - {response.text}")
 
