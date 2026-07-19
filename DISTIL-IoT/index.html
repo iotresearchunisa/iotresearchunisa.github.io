@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DISTIL-IoT 2027 — 1st International Workshop on Distributed Intelligent Learning for IoT</title>
+<meta name="description" content="DISTIL-IoT 2027: 1st International Workshop on Distributed Intelligent Learning for Internet of Things. Held in Tirana, Albania, March 24–26, 2027, in conjunction with AINA-2027.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #14213d;
+    --muted: #5a6478;
+    --line: #e5e7eb;
+    --accent: #c1272d;
+    --accent-soft: #fbeaea;
+    --surface: #f8f9fb;
+    --max: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  nav .brand {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+    font-size: 15px;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  nav a:hover { color: var(--accent); text-decoration: none; }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    overflow: hidden;
+    background-color: #0b1220;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("assets/tirana.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.55);
+    z-index: 0;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(11,18,32,0.15) 0%, rgba(11,18,32,0.65) 100%);
+    z-index: 1;
+  }
+  .hero .container {
+    position: relative;
+    z-index: 2;
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+  .hero .tag {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 1.12;
+    margin: 0 0 14px 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .hero .sub {
+    font-size: clamp(16px, 2vw, 20px);
+    max-width: 720px;
+    opacity: 0.95;
+    margin: 0 0 30px 0;
+    font-weight: 400;
+  }
+  .hero .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-bottom: 34px;
+  }
+  .hero .meta div { font-size: 15px; }
+  .hero .meta .label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.75;
+    margin-bottom: 4px;
+  }
+  .hero .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .hero .cta:hover { background: #a2181e; text-decoration: none; }
+  .hero .cta.secondary {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
+    margin-left: 10px;
+  }
+  .hero .cta.secondary:hover { background: rgba(255,255,255,0.1); }
+
+  /* ---- SECTIONS ---- */
+  section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  section h2 {
+    font-size: 28px;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  section .section-intro {
+    color: var(--muted);
+    margin: 0 0 36px 0;
+    max-width: 720px;
+  }
+
+  #scope p {
+    font-size: 17px;
+    color: #334155;
+    max-width: 780px;
+  }
+  #scope p + p { margin-top: 18px; }
+
+  /* ---- TOPICS GRID ---- */
+  .topics {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .topic {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+    transition: border-color 0.2s;
+  }
+  .topic:hover { border-color: var(--accent); }
+  .topic h3 {
+    font-size: 15px;
+    margin: 0 0 10px 0;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .topic p {
+    font-size: 14px;
+    margin: 0;
+    color: #334155;
+    line-height: 1.55;
+  }
+
+  /* ---- DATES TABLE ---- */
+  .dates {
+    border-top: 1px solid var(--line);
+  }
+  .date-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    padding: 18px 4px;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .date-row .label {
+    font-weight: 500;
+    color: var(--fg);
+    font-size: 15px;
+  }
+  .date-row .value {
+    font-family: "SF Mono", ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    color: var(--muted);
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .date-row.highlight .value {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ---- COMMITTEE ---- */
+  .committee-group + .committee-group { margin-top: 40px; }
+  .committee-group h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin: 0 0 16px 0;
+    font-weight: 600;
+  }
+  .people {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .person {
+    padding: 6px 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--fg);
+  }
+  .person .name {
+    font-weight: 700;
+  }
+  .person .affil {
+    font-style: italic;
+    color: var(--muted);
+  }
+  .person .email {
+    font-family: "SF Mono", ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    word-break: break-all;
+    margin-left: 6px;
+  }
+
+  /* ---- SUBMISSION ---- */
+  #submission .box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 22px;
+    align-items: center;
+  }
+  #submission .box p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  #submission .box strong { color: var(--fg); }
+  #submission .cta {
+    display: inline-block;
+    background: var(--fg);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  #submission .cta:hover { background: #000; text-decoration: none; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--fg);
+    color: #cbd5e1;
+    padding: 40px 0;
+    font-size: 14px;
+  }
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer strong { color: #fff; }
+  footer a { color: #fff; }
+
+  @media (max-width: 640px) {
+    section { padding: 56px 0; }
+    #submission .box {
+      grid-template-columns: 1fr;
+    }
+    .hero .cta.secondary { margin-left: 0; margin-top: 10px; }
+    nav .container { padding: 12px 16px; }
+    .container { padding: 0 18px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="brand">DISTIL-IoT 2027</div>
+    <ul>
+      <li><a href="#scope">Scope</a></li>
+      <li><a href="#topics">Topics</a></li>
+      <li><a href="#dates">Dates</a></li>
+      <li><a href="#committee">Committee</a></li>
+      <li><a href="#submission">Submission</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <span class="tag">In conjunction with AINA-2027</span>
+    <h1>DISTIL-IoT 2027</h1>
+    <p class="sub">1st International Workshop on Distributed Intelligent Learning for Internet of Things</p>
+    <div class="meta">
+      <div>
+        <span class="label">Dates</span>
+        March 24 – 26, 2027
+      </div>
+      <div>
+        <span class="label">Venue</span>
+        Polytechnic University of Tirana, Albania
+      </div>
+      <div>
+        <span class="label">Submission Deadline</span>
+        December 25, 2026
+      </div>
+    </div>
+    <a href="#submission" class="cta">Submit a Paper</a>
+    <a href="https://voyager.ce.fit.ac.jp/conf/aina/2027/" class="cta secondary" target="_blank" rel="noopener">AINA-2027 Website</a>
+  </div>
+</header>
+
+<section id="scope">
+  <div class="container">
+    <h2>Scope &amp; Rationale</h2>
+    <p>The pervasive diffusion of Internet of Things (IoT) technologies is reshaping critical sectors such as healthcare, smart cities, industrial systems and critical infrastructures, generating unprecedented volumes of distributed data that hold enormous potential for intelligent, data-driven decision-making. However, the heterogeneous, resource-constrained and privacy-sensitive nature of IoT environments poses fundamental challenges to traditional centralized learning approaches, calling for novel distributed and collaborative intelligence paradigms that are secure, sustainable and reliable.</p>
+    <p>DISTIL-IoT 2027 focuses on the design, optimization and deployment of distributed learning frameworks — including Distributed Learning, Federated Learning, TinyML and related approaches — tailored to the specific demands of IoT ecosystems. Topics span communication-efficient and energy-aware training algorithms, privacy-preserving and robust mechanisms, handling of non-IID and heterogeneous data, fault-tolerant architectures and trust management, as well as the integration of distributed intelligence with edge computing, blockchain and digital twins.</p>
+    <p>The workshop also welcomes contributions on the assessment and improvement of quality attributes of intelligent IoT applications — security, privacy, reliability, energy efficiency, maintainability — that ultimately determine the trustworthiness of the resulting systems. Case studies, benchmarks, testbeds and interdisciplinary works bridging distributed intelligence with ethical, regulatory and environmental considerations are equally welcome.</p>
+  </div>
+</section>
+
+<section id="topics">
+  <div class="container">
+    <h2>Topics of Interest</h2>
+    <p class="section-intro">Topics include, but are not limited to:</p>
+    <div class="topics">
+      <div class="topic">
+        <h3>Federated &amp; Distributed Learning</h3>
+        <p>Communication-efficient and energy-aware training algorithms, split learning, swarm learning, decentralized and hierarchical architectures.</p>
+      </div>
+      <div class="topic">
+        <h3>Security &amp; Privacy</h3>
+        <p>Privacy-preserving and robust learning, AI-driven detection and mitigation of threats, trust management, adversarial robustness.</p>
+      </div>
+      <div class="topic">
+        <h3>Heterogeneity</h3>
+        <p>Non-IID and heterogeneous data, model and device heterogeneity, interoperability among sensor networks, WLANs, cellular, satellite and wired infrastructures.</p>
+      </div>
+      <div class="topic">
+        <h3>Energy Efficiency &amp; Sustainability</h3>
+        <p>Energy-aware IoT and TinyML architectures, optimization strategies, low-power distributed intelligence, trade-offs between efficiency and performance.</p>
+      </div>
+      <div class="topic">
+        <h3>Fault Tolerance &amp; Resilience</h3>
+        <p>Fault-tolerant distributed learning architectures, self-learning and self-healing mechanisms, resilient inference at the edge, explainability and human interaction.</p>
+      </div>
+      <div class="topic">
+        <h3>Enabling Technologies</h3>
+        <p>Edge and fog computing, blockchain, digital twins, Quantum Computing, Agentic AI, lightweight cryptography, 5G/6G, low-power wireless communications.</p>
+      </div>
+      <div class="topic">
+        <h3>Applications &amp; Testbeds</h3>
+        <p>Intelligent healthcare, remote patient monitoring, smart manufacturing, Industrial IoT, sustainable cities, mobility, automotive, critical infrastructures, benchmarks and datasets.</p>
+      </div>
+      <div class="topic">
+        <h3>Ethical &amp; Regulatory Aspects</h3>
+        <p>Compliance, accountability and interdisciplinary perspectives on distributed intelligence in IoT.</p>
+      </div>
+      <div class="topic">
+        <h3>Quality Assessment</h3>
+        <p>Non-invasive techniques for real-time quality monitoring, reliability assessment methods, metrics and benchmarking frameworks, digital twins for simulating and improving IoT system behaviour.</p>
+      </div>
+      <div class="topic">
+        <h3>Quality Improvement &amp; Testing</h3>
+        <p>Software quality assurance for IoT, automated testing and debugging of ML-based systems, AI-based tools for self-adaptive software optimization, quality enhancement from operational feedback.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dates">
+  <div class="container">
+    <h2>Important Dates</h2>
+    <p class="section-intro">All deadlines are 23:59 Anywhere on Earth (AoE).</p>
+    <div class="dates">
+      <div class="date-row highlight">
+        <div class="label">Submission Deadline</div>
+        <div class="value">December 25, 2026</div>
+      </div>
+      <div class="date-row">
+        <div class="label">Authors Notification</div>
+        <div class="value">January 15, 2027</div>
+      </div>
+      <div class="date-row">
+        <div class="label">Author Registration</div>
+        <div class="value">January 31, 2027</div>
+      </div>
+      <div class="date-row">
+        <div class="label">Final Manuscript</div>
+        <div class="value">January 31, 2027</div>
+      </div>
+      <div class="date-row highlight">
+        <div class="label">Conference Dates</div>
+        <div class="value">March 24 – 26, 2027</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="committee">
+  <div class="container">
+    <h2>Organizing Committee</h2>
+
+    <div class="committee-group">
+      <h3>Workshop Co-Chairs</h3>
+      <ul class="people">
+        <li class="person">
+          <span class="name">Antonio Guerriero</span>, <span class="affil">Università degli Studi di Salerno, Italy</span> — <a href="mailto:antguerriero@unisa.it" class="email">antguerriero@unisa.it</a>
+        </li>
+        <li class="person">
+          <span class="name">Francesco Giuseppe Zammarrelli</span>, <span class="affil">Università degli Studi di Salerno, Italy</span> — <a href="mailto:fzammarrelli@unisa.it" class="email">fzammarrelli@unisa.it</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="committee-group">
+      <h3>Program Committee</h3>
+      <ul class="people">
+        <li class="person">
+          <span class="name">Massimo Ficco</span>, <span class="affil">Università degli Studi di Salerno, Italy</span>
+        </li>
+        <li class="person">
+          <span class="name">Gaetano Perrone</span>, <span class="affil">Università degli Studi di Napoli “Federico II”, Italy</span>
+        </li>
+        <li class="person">
+          <span class="name">Luca Giamattei</span>, <span class="affil">Università degli Studi di Napoli “Federico II”, Italy</span>
+        </li>
+        <li class="person">
+          <span class="name">Gianni D’Angelo</span>, <span class="affil">Università degli Studi di Salerno, Italy</span>
+        </li>
+        <li class="person">
+          <span class="name">Eslam Farsimadan</span>, <span class="affil">Università degli Studi di Salerno, Italy</span>
+        </li>
+        <li class="person">
+          <span class="name">Carlo Puliafito</span>, <span class="affil">University of Pisa, Italy</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="committee-group">
+      <h3>Web Administrator</h3>
+      <ul class="people">
+        <li class="person">
+          <span class="name">Francesco Giuseppe Zammarrelli</span>, <span class="affil">Università degli Studi di Salerno, Italy</span> — <a href="mailto:fzammarrelli@unisa.it" class="email">fzammarrelli@unisa.it</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="submission">
+  <div class="container">
+    <h2>Submission</h2>
+    <p class="section-intro">DISTIL-IoT 2027 is held in conjunction with the 41st International Conference on Advanced Information Networking and Applications (AINA-2027). Papers must be submitted through the AINA-2027 submission system.</p>
+    <div class="box">
+      <p>Follow the <strong>AINA-2027</strong> formatting and submission guidelines. Select the <strong>DISTIL-IoT 2027</strong> track when submitting.</p>
+      <a href="https://voyager.ce.fit.ac.jp/conf/aina/2027/" class="cta" target="_blank" rel="noopener">Go to AINA-2027 →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <strong>DISTIL-IoT 2027</strong><br>
+      Polytechnic University of Tirana, Albania · March 24 – 26, 2027
+    </div>
+    <div>
+      Contact: <a href="mailto:antguerriero@unisa.it">antguerriero@unisa.it</a> · <a href="mailto:fzammarrelli@unisa.it">fzammarrelli@unisa.it</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
