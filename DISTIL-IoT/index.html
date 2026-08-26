@@ -312,6 +312,71 @@
     white-space: nowrap;
   }
   #submission .cta:hover { background: #000; text-decoration: none; }
+  #submission .submission-steps {
+  display: block;
+  padding: 8px;
+  }
+
+  #submission .step {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 22px;
+    align-items: center;
+    padding: 20px 20px;
+  }
+
+  #submission .step + .step {
+    border-top: 1px solid var(--line);
+  }
+
+  #submission .step-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  #submission .step-num {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #submission .step-text p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  #submission .step-text strong {
+    color: var(--fg);
+  }
+
+  #submission .cta.outline {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--line);
+  }
+
+  #submission .cta.outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
+  }
+
+@media (max-width: 640px) {
+  #submission .step {
+    grid-template-columns: 1fr;
+  }
+}
 
   /* ---- FOOTER ---- */
   footer {
@@ -534,35 +599,41 @@
       through the AINA-2027 submission system.
     </p>
 
-    <div class="box">
-      <p>
-        Follow the <strong>AINA-2027</strong> formatting and submission
-        guidelines. Select the
-        <strong>Workshop-DISTIL-IoT-2027: The 1st International Workshop
-        on Distributed Intelligent Learning for Internet of Things
-        (DISTIL-IoT-2027)</strong> track when submitting.
-      </p>
-      
-        <a href="https://voyager.ce.fit.ac.jp/conf/aina/2027/"
-        class="cta"
-        target="_blank"
-        rel="noopener noreferrer"
-        >
-        Go to AINA-2027 →
+  <div class="box submission-steps">
+
+    <div class="step">
+      <div class="step-text">
+        <p>
+          Follow the <strong>AINA-2027</strong> formatting and submission
+          guidelines. Select the
+          <strong>Workshop-DISTIL-IoT-2027: The 1st International Workshop
+          on Distributed Intelligent Learning for Internet of Things
+          (DISTIL-IoT-2027)</strong> track when submitting.
+        </p>
+      </div>
+      <a href="https://voyager.ce.fit.ac.jp/conf/aina/2027/"
+         class="cta outline"
+         target="_blank"
+         rel="noopener noreferrer"
+      >
+        Guidelines →
       </a>
     </div>
 
-    <div class="box">
-      <p>Submit your paper</p>
-      
-        <a href="https://edas.info/newPaper.php?c=35435&amp;track=139523"
-        class="cta"
-        target="_blank"
-        rel="noopener noreferrer"
+    <div class="step">
+      <div class="step-text">
+        <p>Ready to submit? Use the direct EDAS link to go straight to the submission form.</p>
+      </div>
+      <a href="https://edas.info/newPaper.php?c=35435&amp;track=139523"
+         class="cta"
+         target="_blank"
+         rel="noopener noreferrer"
       >
-        Direct Link →
+        Submit Paper →
       </a>
     </div>
+
+  </div>
   </div>
 </section>
 
