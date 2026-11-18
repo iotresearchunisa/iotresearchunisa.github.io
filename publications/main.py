@@ -19,6 +19,13 @@ def extract_paper_ids(url):
     return item_ids
 
 
+def entry_to_dict(entry):
+    d = {field.key: field.value for field in entry.fields}
+    d['ENTRYTYPE'] = entry.entry_type
+    d['ID'] = entry.key
+    return d
+
+
 def create_json(entries):
     current_year = datetime.date.today().year
 
@@ -30,25 +37,30 @@ def create_json(entries):
     }
 
     for entry in entries:
-        if int(entry['year']) > current_year:
-            entry['year'] = '0'
+        e = entry_to_dict(entry)
 
-        entry_type = entry.get('ENTRYTYPE', 'other').lower()
-        if entry_type == 'inproceedings' or entry_type == 'conference':
-            data['conference'].append(entry)
-        elif entry_type == 'book' or entry_type == 'inbook':
-            data['book'].append(entry)
+        try:
+            year = int(e.get('year', 0))
+        except ValueError:
+            year = 0
+        if year > current_year:
+            year = 0
+        e['year'] = str(year)
+
+        entry_type = e['ENTRYTYPE'].lower()
+        if entry_type in ('inproceedings', 'conference'):
+            data['conference'].append(e)
+        elif entry_type in ('book', 'inbook'):
+            data['book'].append(e)
         elif entry_type == 'article':
-            data['article'].append(entry)
+            data['article'].append(e)
         else:
-            data['other'].append(entry)
+            data['other'].append(e)
 
-    # Sorting each category in the data dictionary
     for category in data:
-        data[category] = sorted(data[category], key=lambda x: int(x['year']), reverse=True)
+        data[category].sort(key=lambda x: int(x['year']), reverse=True)
 
     return data
-
 
 def main():
     profileIds = [
@@ -62,7 +74,7 @@ def main():
         'rp79328',  # Eslam
         'rp81635',  # Rimoli
         'rp80959',  # Boi
-        # 'rp79354' # Leila
+        'rp79354' # Leila
     ]
 
     paper_ids = set()
@@ -70,15 +82,19 @@ def main():
     for id in profileIds:
         paper_ids.update(extract_paper_ids('https://www.iris.unisa.it/cris/rp/{}?start=0&sortBy=-1&order=ASC&type=all&rpp=99999'.format(id)))
 
+    print(paper_ids)
     response = requests.post('https://www.iris.unisa.it/references.htm', data={
         'format': 'bibtex',
         'item_id': paper_ids
     })
 
+    # print(response)
     if response.status_code == 200:
-        bib_database = bibtexparser.loads(response.content.decode('utf-8')).entries
+        bib_database = bibtexparser.parse_string(response.content.decode('utf-8')).entries
         with open('formatted_output.json', 'w') as json_file:
-            json.dump(create_json(bib_database), json_file, separators=(',', ':'))
+            data = create_json(bib_database)
+            print(type(data))
+            json.dump(data, json_file, separators=(',', ':'))
     else:
         print(f"Errore nella chiamata POST: {response.status_code} - {response.text}")
 
